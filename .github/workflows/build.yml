@@ -10,18 +10,23 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v11
-
-      - name: Configure
+      - name: Get CommonLibSSE-NG
         shell: pwsh
-        run: cmake -S . -B build -A x64 -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
+        run: |
+          New-Item -ItemType Directory -Force -Path lib | Out-Null
+          git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/CharmedBaryon/CommonLibSSE-NG.git lib/commonlibsse-ng
 
-      - name: Build
-        run: cmake --build build --config Release
+      - name: Setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+
+      - name: Build DLL
+        shell: pwsh
+        run: |
+          xmake f -m release -y
+          xmake -y
 
       - name: Collect DLL
         shell: pwsh
