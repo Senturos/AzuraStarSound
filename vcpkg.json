@@ -1,0 +1,8 @@
+{
+  "name": "azura-star-sound",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "commonlibsse-ng"
+  ],
+  "builtin-baseline": "4c6a8d9b5c8b0d3c5e44d0f44cbfbc8e7f37b74d"
+}
