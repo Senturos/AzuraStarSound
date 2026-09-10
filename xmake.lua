@@ -8,6 +8,7 @@ set_warnings("allextra")
 add_rules("mode.debug", "mode.releasedbg", "mode.release")
 
 target("AzuraStarSound")
+    add_deps("commonlibsse-ng")
     add_rules("commonlibsse-ng.plugin", {
         name = "Azura Star Sound",
         author = "Senturos",
